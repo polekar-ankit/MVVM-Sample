@@ -3,6 +3,7 @@ package com.gipl.samplemvvm.ui.userslist;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.widget.Toast;
 
 import com.gipl.samplemvvm.BR;
 import com.gipl.samplemvvm.R;
@@ -54,7 +55,7 @@ public class UserListActivity extends BaseActivity<LayoutUserListActivityBinding
 
         UserListAdapter userListAdapter = new UserListAdapter();
         userListAdapter.setListener(user -> {
-
+            Toast.makeText(this, user.getName(), Toast.LENGTH_SHORT).show();
         });
         userListAdapter.addItems(users);
         binding.rvUserlist.setLayoutManager(new LinearLayoutManager(this));
