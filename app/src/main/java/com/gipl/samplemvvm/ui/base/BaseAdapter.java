@@ -14,12 +14,13 @@ import java.util.ArrayList;
 public abstract class BaseAdapter<P extends BaseViewHolder, A extends Object> extends RecyclerView.Adapter<P> {
     P holder;
     private ArrayList<A> arrayList;
+    public IRecyclerListener<A> listener;
 
     public abstract int getItemId();
 
     public abstract P getHolder(View view);
 
-    public abstract void onViewSet(P p, int position,A a);
+    public abstract void onViewSet(P p, int position, A a);
 
     @Override
     public int getItemCount() {
@@ -57,7 +58,7 @@ public abstract class BaseAdapter<P extends BaseViewHolder, A extends Object> ex
         notifyItemChanged(arrayList.size());
     }
 
-    public void clear(){
+    public void clear() {
         arrayList.clear();
         notifyDataSetChanged();
     }
@@ -65,7 +66,17 @@ public abstract class BaseAdapter<P extends BaseViewHolder, A extends Object> ex
     @Override
     public void onBindViewHolder(@NonNull P p, int position) {
         A a = arrayList.get(position);
-        onViewSet(p, position,a);
+        onViewSet(p, position, a);
     }
 
+    public void setListener(IRecyclerListener<A> listener) {
+        this.listener = listener;
+    }
+
+
+
+
+    public interface IRecyclerListener<T>{
+        void onItemClick(T t);
+    }
 }

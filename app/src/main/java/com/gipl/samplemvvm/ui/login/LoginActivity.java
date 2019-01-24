@@ -2,6 +2,7 @@ package com.gipl.samplemvvm.ui.login;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
 
 import com.gipl.samplemvvm.R;
 import com.gipl.samplemvvm.databinding.LayoutLoginBinding;
@@ -45,6 +46,12 @@ public class LoginActivity extends BaseActivity<LayoutLoginBinding,LoginViewMode
         LayoutLoginBinding layoutLoginBinding = getViewDataBinding();
         loginViewModel.getResponseMutableLiveData().observe(this, this::processLoginRes);
         loginViewModel.getLoginSuccessRes().observe(this,this::processLoginSuccess);
+        layoutLoginBinding.btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     private void processLoginSuccess(Boolean aBoolean) {

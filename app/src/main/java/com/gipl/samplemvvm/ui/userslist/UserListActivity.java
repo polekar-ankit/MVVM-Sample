@@ -53,6 +53,9 @@ public class UserListActivity extends BaseActivity<LayoutUserListActivityBinding
         users.add(new User("wer", "1234"));
 
         UserListAdapter userListAdapter = new UserListAdapter();
+        userListAdapter.setListener(user -> {
+
+        });
         userListAdapter.addItems(users);
         binding.rvUserlist.setLayoutManager(new LinearLayoutManager(this));
         binding.rvUserlist.setAdapter(userListAdapter);
