@@ -74,8 +74,6 @@ public abstract class BaseAdapter<P extends BaseViewHolder, A extends Object> ex
     }
 
 
-
-
     public interface IRecyclerListener<T>{
         void onItemClick(T t);
     }
