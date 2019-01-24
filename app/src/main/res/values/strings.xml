@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">SampleMvvm</string>
+    <string name="msg_no_internet_connectivity">No Internet</string>
+    <string name="exception_not_found">t</string>
+    <string name="error_invitation_link_not_available_now">Server Not found</string>
+    <string name="unkonw_host_exception">Unkonwn Host Exception</string>
+    <string name="exception_message_generic">Something went wrong</string>
+</resources>
