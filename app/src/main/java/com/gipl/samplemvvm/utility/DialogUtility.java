@@ -4,12 +4,14 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.gipl.samplemvvm.R;
 
 
 /**
@@ -31,7 +33,7 @@ public class DialogUtility {
         dialog.setCancelable(true);
 //        dialog.setContentView(nLayoutId);
         dialog.setContentView(view);
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         if (dialog.isShowing()) {
             dialog.dismiss();
@@ -42,11 +44,17 @@ public class DialogUtility {
         return dialog;
     }
 
-    public static ProgressDialog showLoadingDialog(Context context) {
+
+
+    public static ProgressDialog showLoadingDialog(Context context, int... messageId) {
 
         ProgressDialog progressDialog = new ProgressDialog(context);
-        progressDialog.setMessage("Please wait...");
+        if (messageId.length > 0)
+            progressDialog.setMessage(context.getString(messageId[0]));
+        else
+            progressDialog.setMessage(context.getString(R.string.msg_default_wait));
         progressDialog.show();
+
 //        if (progressDialog.getWindow() != null) {
 //            progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 //        }
@@ -58,9 +66,8 @@ public class DialogUtility {
         return progressDialog;
     }
 
-
-
     public static void showToast(Context context, String message) {
-        Toast.makeText(context,message,Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
+
 }

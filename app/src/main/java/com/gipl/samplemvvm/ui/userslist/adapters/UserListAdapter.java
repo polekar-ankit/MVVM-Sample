@@ -25,7 +25,7 @@ public class UserListAdapter extends BaseAdapter<UserListAdapter.UserListHolder,
 
     @Override
     public void onViewSet(UserListHolder userListHolder, int position, User user) {
-        userListHolder.getBindVariable().setViewModel(new UserListViewModel(user));
+        userListHolder.getBindVariable().setViewModel(user);
        userListHolder.itemView.setOnClickListener(view -> listener.onItemClick(user));
     }
 

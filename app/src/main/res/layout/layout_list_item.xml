@@ -5,7 +5,7 @@
 
         <variable
             name="viewModel"
-            type="com.gipl.samplemvvm.ui.userslist.adapters.UserListViewModel" />
+            type="com.gipl.samplemvvm.ui.modles.User" />
     </data>
 
     <LinearLayout
@@ -16,6 +16,6 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.userName}" />
+            android:text="@{viewModel.name}" />
     </LinearLayout>
 </layout>

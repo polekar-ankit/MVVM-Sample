@@ -5,4 +5,5 @@
     <string name="error_invitation_link_not_available_now">Server Not found</string>
     <string name="unkonw_host_exception">Unkonwn Host Exception</string>
     <string name="exception_message_generic">Something went wrong</string>
+    <string name="msg_default_wait">Please Wait.....</string>
 </resources>

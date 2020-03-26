@@ -1,9 +1,11 @@
 package com.gipl.samplemvvm.ui.base;
 
-import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.ViewModel;
 import android.content.Context;
-import android.databinding.ObservableBoolean;
+
+import androidx.databinding.ObservableBoolean;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
+
 
 import com.gipl.samplemvvm.data.DataManager;
 import com.gipl.samplemvvm.ui.modles.Response;

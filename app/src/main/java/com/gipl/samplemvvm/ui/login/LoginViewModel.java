@@ -1,8 +1,8 @@
 package com.gipl.samplemvvm.ui.login;
 
-import android.arch.lifecycle.MutableLiveData;
-import android.databinding.Observable;
-import android.databinding.ObservableField;
+import androidx.databinding.Observable;
+import androidx.databinding.ObservableField;
+import androidx.lifecycle.MutableLiveData;
 
 import com.gipl.samplemvvm.data.DataManager;
 import com.gipl.samplemvvm.ui.base.BaseViewModel;

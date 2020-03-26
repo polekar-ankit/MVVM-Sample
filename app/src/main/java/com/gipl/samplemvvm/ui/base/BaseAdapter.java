@@ -1,10 +1,11 @@
 package com.gipl.samplemvvm.ui.base;
 
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
@@ -12,9 +13,15 @@ import java.util.ArrayList;
  * Creted by User on 24-Jan-19
  */
 public abstract class BaseAdapter<P extends BaseViewHolder, A extends Object> extends RecyclerView.Adapter<P> {
+    protected IRecyclerListener<A> listener;
+
     P holder;
-    private ArrayList<A> arrayList;
-    public IRecyclerListener<A> listener;
+    private ArrayList<A> arrayList = new ArrayList<>();
+
+    public ArrayList<A> getArrayList() {
+        return arrayList;
+    }
+
 
     public abstract int getItemId();
 
@@ -48,6 +55,12 @@ public abstract class BaseAdapter<P extends BaseViewHolder, A extends Object> ex
         return getHolder(view);
     }
 
+    public void appendItems(ArrayList<A> list) {
+        int pos = arrayList.size();
+        arrayList.addAll(list);
+        notifyItemRangeInserted(pos, list.size());
+    }
+
     public void addItems(ArrayList<A> list) {
         arrayList = list;
         notifyDataSetChanged();
@@ -74,7 +87,9 @@ public abstract class BaseAdapter<P extends BaseViewHolder, A extends Object> ex
     }
 
 
-    public interface IRecyclerListener<T>{
+    public interface IRecyclerListener<T> {
         void onItemClick(T t);
     }
+
+
 }

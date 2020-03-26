@@ -1,27 +1,27 @@
 package com.gipl.samplemvvm.ui.base;
 
-import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
-import com.gipl.samplemvvm.ui.modles.Response;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
+
 import com.gipl.samplemvvm.utility.DialogUtility;
 import com.gipl.samplemvvm.utility.NetworkUtils;
 
@@ -52,7 +52,7 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
     @LayoutRes
     int getLayoutId();
 
-    public abstract String getScreenName();
+//    public abstract String getScreenName();
 
     /**
      * Override for set view model
@@ -66,30 +66,28 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 //        FirebaseAnalytics.getInstance(this).setCurrentScreen(this, this.getScreenName(), this.getScreenName());
 
+
         performDependencyInjection();
         super.onCreate(savedInstanceState);
-        // adjustFontScale(getResources().getConfiguration());
-//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-//                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+
         performDataBinding();
 
 
     }
 
+
     @Override
     protected void onResume() {
         super.onResume();
-        hideKeyboardOnLaunch();
+//        hideKeyboardOnLaunch();
     }
 
     public T getViewDataBinding() {
         return mViewDataBinding;
     }
 
-    @TargetApi(Build.VERSION_CODES.M)
     public boolean hasPermission(String permission) {
-        return Build.VERSION.SDK_INT < Build.VERSION_CODES.M ||
-                checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED;
+        return ActivityCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED;
     }
 
     public void hideKeyboard() {
@@ -110,6 +108,7 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
     public void hideKeyboardOnLaunch() {
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        hideKeyboard();
     }
 
 
@@ -131,18 +130,16 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
         AndroidInjection.inject(this);
     }
 
-    @TargetApi(Build.VERSION_CODES.M)
     public void requestPermissionsSafely(String[] permissions, int requestCode) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requestPermissions(permissions, requestCode);
-        }
+        ActivityCompat.requestPermissions(this, permissions, requestCode);
     }
 
-    public void showLoading() {
+    public void showLoading(int... msgId) {
         hideLoading();
-        mProgressDialog = DialogUtility.showLoadingDialog(this);
+        mProgressDialog = DialogUtility.showLoadingDialog(this, msgId);
         mViewModel.setIsLoading(true);
     }
+
 
     private void performDataBinding() {
         mViewDataBinding = DataBindingUtil.setContentView(this, getLayoutId());
@@ -171,6 +168,12 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
 
     }
 
+    public void setActivityTitle(String sTitle) {
+        ActionBar actionbar = getSupportActionBar();
+        if (actionbar != null)
+            actionbar.setTitle(sTitle);
+    }
+
     public void setActionBar(Toolbar toolbar, String sTitle) {
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
@@ -189,6 +192,7 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
         return super.onOptionsItemSelected(item);
     }
 
+
     protected void addFragment(int containerViewId, Fragment fragment, boolean fAddToBackStack, @Nullable String tag) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         if (tag != null) {
@@ -203,7 +207,7 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
         transaction.commit();
     }
 
-    protected void replaceFragment(int containerViewId, Fragment fragment, boolean fAddToBackStack) {
+    public void replaceFragment(int containerViewId, Fragment fragment, boolean fAddToBackStack) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(containerViewId, fragment);
 
@@ -211,23 +215,6 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
             transaction.addToBackStack(null);
         }
         transaction.commit();
-    }
-
-    public void processResponse(Response response) {
-        switch (response.status) {
-            case LOADING:
-                showLoading();
-                break;
-            case SUCCESS:
-                hideLoading();
-                if (response.data instanceof String)
-                    DialogUtility.showToast(this, (String) response.data);
-                break;
-            case ERROR:
-                hideLoading();
-                DialogUtility.showToast(this, "Errror Occure");
-                break;
-        }
     }
 
 

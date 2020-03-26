@@ -1,9 +1,10 @@
 package com.gipl.samplemvvm.ui.base;
 
-import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
+import androidx.recyclerview.widget.RecyclerView;
 
 
 public abstract class BaseViewHolder<T extends ViewDataBinding> extends RecyclerView.ViewHolder {
@@ -15,13 +16,12 @@ public abstract class BaseViewHolder<T extends ViewDataBinding> extends Recycler
     }
 
 
-
     public BaseViewHolder(View itemView/*, V v*/) {
         super(itemView);
         binding = DataBindingUtil.bind(itemView);
     }
 
-   public void unbind() {
+    public void unbind() {
         if (binding != null) {
             binding.unbind();
         }
@@ -32,5 +32,6 @@ public abstract class BaseViewHolder<T extends ViewDataBinding> extends Recycler
             binding = DataBindingUtil.bind(itemView);
         }
     }
+
 
 }

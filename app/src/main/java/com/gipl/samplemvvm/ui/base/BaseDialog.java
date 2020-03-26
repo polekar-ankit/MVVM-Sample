@@ -2,11 +2,12 @@ package com.gipl.samplemvvm.ui.base;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.arch.lifecycle.ViewModel;
 import android.content.Context;
-import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
 import android.view.LayoutInflater;
+
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
+import androidx.lifecycle.ViewModel;
 
 import com.gipl.samplemvvm.utility.DialogUtility;
 
@@ -21,6 +22,7 @@ public abstract class BaseDialog<T extends ViewDataBinding, V extends ViewModel>
     private T viewBinding;
     private V dialogViewModel;
     private ProgressDialog mProgressDialog;
+
     public abstract int getLayoutId();
 
     public abstract V getDialogViewModel();
@@ -28,6 +30,8 @@ public abstract class BaseDialog<T extends ViewDataBinding, V extends ViewModel>
     public abstract int getDialogBindingVariable();
 
     protected void init(Context context) {
+        if (dialog != null && dialog.isShowing())
+            dialog.dismiss();
         this.context = context;
         dialogViewModel = dialogViewModel == null ? getDialogViewModel() : dialogViewModel;
         viewBinding = DataBindingUtil.inflate(LayoutInflater.from(context), getLayoutId(), null, false);
@@ -45,8 +49,8 @@ public abstract class BaseDialog<T extends ViewDataBinding, V extends ViewModel>
             dialog.dismiss();
     }
 
-    public void setCancelable(boolean isCancalable){
-        if (dialog!=null){
+    public void setCancelable(boolean isCancalable) {
+        if (dialog != null) {
             dialog.setCancelable(isCancalable);
         }
     }

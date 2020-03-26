@@ -1,0 +1,16 @@
+ext {
+
+    serverUrls = [
+            test_server_url = "\" https://httpbin.org/get/\"",
+            dev_server_url = "\" https://httpbin.org/get/\"",
+            live_server_url = "\" https://httpbin.org/get/\"",
+
+    ]
+
+    versionCode = 2//change it for final build
+    String date = new Date().format("ddMMyy")
+    String time = new Date().format("HHmmss")
+    versionName = versionCode + ".0." + date + "." + time
+    prefName = "\"MyAppPref\""
+
+}

@@ -32,7 +32,6 @@ public class AppDataManager implements DataManager {
 
 
 
-
     @Override
 
     public Context getContext() {

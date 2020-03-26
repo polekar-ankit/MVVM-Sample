@@ -1,9 +1,11 @@
 package com.gipl.samplemvvm.ui.userslist;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
+
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.gipl.samplemvvm.BR;
 import com.gipl.samplemvvm.R;
@@ -31,11 +33,6 @@ public class UserListActivity extends BaseActivity<LayoutUserListActivityBinding
     @Override
     public int getLayoutId() {
         return R.layout.layout_user_list_activity;
-    }
-
-    @Override
-    public String getScreenName() {
-        return UserListActivity.class.getSimpleName();
     }
 
     @Override

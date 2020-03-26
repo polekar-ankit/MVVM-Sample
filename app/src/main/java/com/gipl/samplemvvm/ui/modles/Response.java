@@ -1,7 +1,9 @@
 package com.gipl.samplemvvm.ui.modles;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import com.gipl.samplemvvm.R;
 
 import static com.gipl.samplemvvm.ui.modles.Status.ERROR;
 import static com.gipl.samplemvvm.ui.modles.Status.LOADING;
@@ -28,8 +30,9 @@ public class Response {
         this.error = error;
     }
 
-    public static Response loading() {
-        return new Response(LOADING, null, null);
+    public static Response loading(int... progressMsgId) {
+        if (progressMsgId.length > 0) return new Response(LOADING, progressMsgId[0], null);
+        else return new Response(LOADING, R.string.msg_default_wait, null);
     }
 
 

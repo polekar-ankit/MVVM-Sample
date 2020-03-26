@@ -20,6 +20,7 @@ package com.gipl.samplemvvm.di.module;
 import android.app.Application;
 import android.content.Context;
 
+import com.gipl.samplemvvm.BuildConfig;
 import com.gipl.samplemvvm.data.AppDataManager;
 import com.gipl.samplemvvm.data.DataManager;
 import com.gipl.samplemvvm.data.local.prefs.AppPreferencesHelper;
@@ -66,7 +67,7 @@ public class AppModule {
     @Provides
     @PreferenceInfo
     String providePreferenceName() {
-        return "AppPref";
+        return BuildConfig.PREF_NAME;
     }
 
     @Provides
